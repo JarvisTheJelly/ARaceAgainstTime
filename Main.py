@@ -1,4 +1,5 @@
 import pygame
+import game_handler
 
 def main():
     pygame.init()
@@ -7,6 +8,8 @@ def main():
     screen = pygame.display.set_mode(screen_size)
 
     pygame.display.set_caption("A Race Against Time")
+
+    handler = game_handler.game_handler(screen_size)
 
     done = False
     while not done:
@@ -18,7 +21,9 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     done = True
 
-        screen.fill((0, 0, 0))
+        handler.update()
+        handler.render(screen)
+
         pygame.display.update()
 
     pygame.quit()

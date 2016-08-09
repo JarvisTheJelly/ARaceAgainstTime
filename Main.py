@@ -1,5 +1,5 @@
 import pygame
-import game_handler
+import GameHandler
 
 def main():
     pygame.init()
@@ -9,7 +9,7 @@ def main():
 
     pygame.display.set_caption("A Race Against Time")
 
-    handler = game_handler.game_handler(screen_size)
+    handler = GameHandler.GameHandler(screen_size)
 
     done = False
     while not done:

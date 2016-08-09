@@ -4,7 +4,7 @@ scripting, etc. """
 
 import pygame
 
-class game_handler(object):
+class GameHandler(object):
     """The game_handler class. As said above, this will
     handle all of the things that change in the game."""
 

@@ -3,6 +3,7 @@ This class will handle all of the entities, collision,
 scripting, etc. """
 
 import pygame
+import Background
 
 class GameHandler(object):
     """The game_handler class. As said above, this will

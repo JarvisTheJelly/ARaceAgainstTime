@@ -24,24 +24,30 @@ class GameHandler(object):
         #TODO: For background, make a class that generates a
         #star field with planets that update (thing of the space
         #school demo project
-        self.background = pygame.Surface(screen_size)
+        self.background = Background.Background(screen_size)
         
         self.entities = []
-
-    def menu_background(self):
-
+        
+        self.goal_fps = 60.0
+        self.game_clock = pygame.time.Clock()
 
     def update_entities(self):
         for entity in self.entities:
             entity.update()
 
-    def update(self):
+    def update(self, override_speed=None):
+        self.game_clock.tick(self.goal_fps)
+
         self.update_entities()
+        if override_speed is None:
+            self.background.update(1)
+        else:
+            self.background.update(override_speed)
 
     def render(self, surface):
-        self.background.fill((0, 0, 0))
-
-        surface.blit(self.background, (0, 0))
+        surface.fill((0, 0, 0)) # Space is black
+        
+        self.background.render(surface)
 
         for entity in self.entities:
             entity.render(surface)

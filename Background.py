@@ -1,7 +1,8 @@
 """This file contains the class for the background"""
 
-import Entity
+import pygame
 import random
+import Entity
 import gametools
 
 
@@ -19,21 +20,29 @@ class Background(object):
         # The number of entities the screen should roughly have
         self.entity_goal = entity_goal
 
-        self.populate_stars(screen_size)
+        self.screen_size = screen_size
+        self.populate(self.screen_size, True)
 
-    def populate(self, screen_size):
+    def populate(self, screen_size, first=False):
         num_entities = self.entity_goal - len(self.entity_list)
         for i in xrange(num_entities):
-            random_pos = gametools.vector2.Vector2(0,
-                                                   random.randint(0, screen_size[1]))
-            random_img = pygame.Surface((random.randint(2, 4),
-                                         random.randint(2, 4)))
+            if first:
+                random_pos = gametools.vector2.Vector2(random.randint(0, screen_size[0]), 
+                                                       random.randint(0, screen_size[1]))
+
+            else:
+                random_pos = gametools.vector2.Vector2(screen_size[0], random.randint(0, screen_size[1]))
+
+            width = random.uniform(2, 7)
+            distance = (1.0 / (2 ** width)) * (2 ** 7)
+            random_img = pygame.Surface((int(width), int(width)))
+
             random_img.fill((255, 255, 255))
 
-            entity_to_add = Entity.Entity(random_pos, random_img)
+            entity_to_add = Entity.Entity(random_pos, random_img, distance)
 
             self.entity_list.append(entity_to_add)
-        
+
     def update(self, speed):
         """Updates all the entities and checks to see if they
         go off the screen. If so, REMOVE THEM.
@@ -49,6 +58,8 @@ class Background(object):
 
         for entity in garbage_collection:
             self.entity_list.remove(entity)
+
+        self.populate(self.screen_size)
 
     def render(self, surface):
         """Render all the entities to the given surface"""

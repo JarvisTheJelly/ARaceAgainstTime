@@ -28,6 +28,9 @@ class GameHandler(object):
         
         self.entities = []
 
+    def menu_background(self):
+
+
     def update_entities(self):
         for entity in self.entities:
             entity.update()

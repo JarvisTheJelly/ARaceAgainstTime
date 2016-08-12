@@ -13,7 +13,8 @@ def main():
     pygame.display.set_caption("A Race Against Time")
 
     handler = GameHandler.GameHandler(screen_size)
-    main_menu = Menu.Menu(width,height)
+    handler.current_state = "GAME"
+    # main_menu = Menu.Menu(width,height)
 
     done = False
     while not done:
@@ -34,13 +35,13 @@ def main():
             handler.render(screen)
             option = main_menu.handle_mouse_input(mouse_pos, pygame.mouse.get_pressed())
             if option is not None:
-                if option == 1:
+                if option == 0:
                     """Start"""
+                    print "Start"
 
-                elif option == 2:
+                elif option == 1:
                     """Quit"""
                     done = True
-
 
 
             main_menu.render(screen)
@@ -48,7 +49,12 @@ def main():
             pygame.display.update()
 
         if handler.current_state == "GAME":
-            handler.update()
+
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                handler.update(50)
+            else:
+                handler.update()
+
             handler.render(screen)
 
 

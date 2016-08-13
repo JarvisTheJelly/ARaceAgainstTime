@@ -21,6 +21,13 @@ class Background(object):
         self.entity_goal = entity_goal
 
         self.screen_size = screen_size
+
+        self.planets = [pygame.image.load('res/Planets/Planet1.png').convert(),
+                        pygame.image.load('res/Planets/Planet2.png').convert(),
+                        pygame.image.load('res/Planets/Planet3.png').convert()]
+        for planet in self.planets:
+            planet.set_colorkey((255, 0, 255))
+
         self.populate(self.screen_size, True)
 
     def populate(self, screen_size, first=False):
@@ -33,11 +40,19 @@ class Background(object):
             else:
                 random_pos = gametools.vector2.Vector2(screen_size[0], random.randint(0, screen_size[1]))
 
+            is_planet = random.randint(0, 199) == 0
+
             width = random.uniform(2, 7)
             distance = (1.0 / (2 ** width)) * (2 ** 7)
-            random_img = pygame.Surface((int(width), int(width)))
-
-            random_img.fill((255, 255, 255))
+            if not is_planet:
+                random_img = pygame.Surface((int(width), int(width)))
+                random_img.fill((255, 255, 255))
+            else:
+                random_img = random.choice(self.planets)
+                scale = (width-2) / 5
+                random_img = pygame.transform.scale(random_img, (int(random_img.get_width() * scale),
+                                                                 int(random_img.get_height() * scale)))
+                random_pos.x += random_img.get_width()
 
             entity_to_add = Entity.Entity(random_pos, random_img, distance)
 
@@ -50,10 +65,12 @@ class Background(object):
         speed is how fast the screen is scrolling.
         """
 
+        self.entity_list = sorted(self.entity_list, key=lambda Entity: Entity.img.get_width())
+
         garbage_collection = []
         for entity in self.entity_list:
             entity.update(speed)
-            if entity.pos.x < 0:
+            if entity.pos.x + (0.5 * entity.img.get_width()) < 0:
                 garbage_collection.append(entity)
 
         for entity in garbage_collection:

@@ -6,15 +6,16 @@ import GameHandler
 def main():
     pygame.init()
 
-    width,height = (1280,720)
-    screen_size = width, height = (width,height)
+    screen_size = width, height = (1280, 720)
     screen = pygame.display.set_mode(screen_size)
 
     pygame.display.set_caption("A Race Against Time")
 
     handler = GameHandler.GameHandler(screen_size)
     handler.current_state = "GAME"
-    # main_menu = Menu.Menu(width,height)
+    main_menu = Menu.Menu(width, height)
+
+    boost_speed = 50
 
     done = False
     while not done:
@@ -43,20 +44,23 @@ def main():
                     """Quit"""
                     done = True
 
-
             main_menu.render(screen)
 
             pygame.display.update()
 
         if handler.current_state == "GAME":
 
+            if pygame.key.get_pressed()[pygame.K_w]:
+                boost_speed += 0.5
+            elif pygame.key.get_pressed()[pygame.K_s]:
+                boost_speed -= 0.5
+
             if pygame.key.get_pressed()[pygame.K_SPACE]:
-                handler.update(50)
+                handler.update(boost_speed)
             else:
                 handler.update()
 
             handler.render(screen)
-
 
         pygame.display.update()
 

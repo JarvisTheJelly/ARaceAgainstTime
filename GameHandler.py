@@ -4,6 +4,8 @@ scripting, etc. """
 
 import pygame
 import Background
+import Player
+import gametools.vector2
 
 class GameHandler(object):
     """The game_handler class. As said above, this will
@@ -21,19 +23,19 @@ class GameHandler(object):
 
         self.current_state = "MENU"
 
-        #TODO: For background, make a class that generates a
-        #star field with planets that update (thing of the space
-        #school demo project
         self.background = Background.Background(screen_size)
-        
+
         self.entities = []
+
+        self.main_player = Player.Player(gametools.vector2.Vector2(64, screen_size[1] / 2))
+        self.entities.append(self.main_player)
         
         self.goal_fps = 60.0
         self.game_clock = pygame.time.Clock()
 
     def update_entities(self):
         for entity in self.entities:
-            entity.update()
+            entity.update(0)
 
     def update(self, override_speed=None):
         self.game_clock.tick(self.goal_fps)

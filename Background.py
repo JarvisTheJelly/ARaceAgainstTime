@@ -91,8 +91,6 @@ class Background(object):
             self.entity_list.remove(entity)
             del entity
 
-        print len(self.entity_list)
-
         self.populate(self.screen_size)
 
     def render(self, surface):

@@ -13,7 +13,10 @@ class Player(Entity.Entity):
         """The initialization of the player class."""
 
         # player_img = pygame.image.load("res/Player.png").convert()
-        player_img = pygame.Surface((64, 64))
-        player_img.fill((255, 255, 255))
+        player_img = pygame.image.load("res/ship.png").convert()
+        player_img.set_colorkey((255, 0, 255))
 
         Entity.Entity.__init__(self, pos, player_img)
+
+    def render(self, surface):
+        surface.blit(self.img,self.pos)

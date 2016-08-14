@@ -46,7 +46,7 @@ class Background(object):
 
             if random.randint(0, 299) == 0 or (first and random.randint(0, 9) == 0):
                 # Add a star
-                width = random.uniform(3, 10)
+                width = random.uniform(3, 7)
                 random_img = pygame.Surface((int(width), int(width)))
                 random_img.fill((255, 255, 255))
                 distance = 75

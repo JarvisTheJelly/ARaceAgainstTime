@@ -15,7 +15,7 @@ def main():
     handler.current_state = "GAME"
     main_menu = Menu.Menu(width, height)
 
-    boost_speed = 50
+    boost_speed = 50.0
 
     done = False
     while not done:

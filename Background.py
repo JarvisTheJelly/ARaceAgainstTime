@@ -44,14 +44,14 @@ class Background(object):
             else:
                 random_pos = gametools.vector2.Vector2(screen_size[0], random.randint(0, screen_size[1]))
 
-            if random.randint(0, 299) == 0 or (first and random.randint(0, 9) == 0):
+            if random.randint(0, 999) == 0 or (first and random.randint(0, 9) == 0):
                 # Add a star
                 width = random.uniform(3, 7)
                 random_img = pygame.Surface((int(width), int(width)))
                 random_img.fill((255, 255, 255))
                 distance = 75
 
-            elif random.randint(0, 199) == 0:
+            elif random.randint(0, 499) == 0:
                 # Add a planet
                 width = random.uniform(2, 7)
                 random_img = random.choice(self.planets)

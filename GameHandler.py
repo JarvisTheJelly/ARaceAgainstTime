@@ -42,7 +42,7 @@ class GameHandler(object):
 
         self.update_entities()
         if override_speed is None:
-            self.background.update(1)
+            self.background.update(1.0)
         else:
             self.background.update(override_speed)
 
